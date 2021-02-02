@@ -37,7 +37,7 @@ class PlayerViewController: UIViewController {
         
         
         slider.value = 0
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -51,12 +51,12 @@ class PlayerViewController: UIViewController {
         let imgUrl = URL(string: data?.artworkUrl100 ?? "")
         artImg.kf.setImage(with: imgUrl)
         let trackUrl = URL(string: data?.previewUrl ?? "")
-          let playerItem:AVPlayerItem = AVPlayerItem(url: trackUrl!)
-            player = AVPlayer(playerItem: playerItem)
+        let playerItem:AVPlayerItem = AVPlayerItem(url: trackUrl!)
+        player = AVPlayer(playerItem: playerItem)
         
         self.title = data?.artistName ?? ""
         
-       
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.finishedPlaying(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
         
@@ -94,7 +94,7 @@ class PlayerViewController: UIViewController {
                 //stop the activity indicator
                 print("Buffering completed")
                 self.playBtn.isHidden = false
-//                self.loadingView.isHidden = true
+                //                self.loadingView.isHidden = true
             }
             
         }
@@ -102,7 +102,7 @@ class PlayerViewController: UIViewController {
         
         
         
-       
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,35 +112,33 @@ class PlayerViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-
+    
     @IBAction func playAction(_ sender: Any) {
-        let trackUrl = URL(string: data?.previewUrl ?? "")
+        
         
         if player?.rate == 0
         {
             player!.play()
-            //playButton!.setImage(UIImage(named: "player_control_pause_50px.png"), forState: UIControlState.Normal)
             playBtn.setBackgroundImage(UIImage(named: "pause"), for: UIControl.State.normal)
         } else {
             player!.pause()
-            //playButton!.setImage(UIImage(named: "player_control_play_50px.png"), forState: UIControlState.Normal)
             playBtn.setBackgroundImage(UIImage(named: "play"), for: UIControl.State.normal)
         }
     }
     
     
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider)
-      {
-          let seconds : Int64 = Int64(playbackSlider.value)
-          let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
-          
-          player!.seek(to: targetTime)
-          
-          if player!.rate == 0
-          {
-              player?.play()
-          }
-      }
+    {
+        let seconds : Int64 = Int64(playbackSlider.value)
+        let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
+        
+        player!.seek(to: targetTime)
+        
+        if player!.rate == 0
+        {
+            player?.play()
+        }
+    }
     
     @objc func finishedPlaying( _ myNotification:NSNotification) {
         playBtn.setBackgroundImage(UIImage(named: "play"), for: UIControl.State.normal)
@@ -155,5 +153,5 @@ class PlayerViewController: UIViewController {
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
-
+    
 }

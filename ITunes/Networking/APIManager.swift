@@ -50,27 +50,6 @@ class APIManager {
     }
   }
   
-  
-//  //MARK: - Fetching detail data from Network
-//  func requestDetail(_ id: Int, completion: @escaping (DetailItems) -> ()){
-//    let detailURL = "https://itunes.apple.com/lookup?"
-//
-//    let parameters: [String : String] = [
-//      "entity": "song",
-//      "id": "\(id)"
-//    ]
-//
-//      Alamofire.request(detailURL, method: .get, parameters: parameters).response { (response) in
-//        guard let data = response.data else { return }
-//        let decoder = JSONDecoder()
-//        do {
-//          let results = try decoder.decode(DetailItems.self, from: data)
-//          completion(results)
-//        } catch {
-//          print("Error fetch data")
-//      }
-//    }
-//  }
     
     func searchData(_ text: String, completion: @escaping ([Artist]) -> ()){
       let url = "https://itunes.apple.com/search?"
